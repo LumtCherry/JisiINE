@@ -11,9 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('recipe', function (Blueprint $table) {
+        Schema::create('recipes', function (Blueprint $table) {
             $table->id();
+            //$table->foreignId('user_id')->constrained();  
+            //$table->foreignId('tag_id')->constrained();  
+            //$table->string('college_name',25);
+            $table->string('title',50);
+            $table->string('ingredients');
+            $table->string('recipe');
+            $table->string('introduction');
             $table->timestamps();
+            $table->double('vote_average');
+            $table->string('image_path')->nullable(true);
+            //$table->foreignId('recipe_id')->constrained()->nullable(true);
         });
     }
 
