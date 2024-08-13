@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('likes', function (Blueprint $table) {
-            $table->user_id();
-            $table->timestamps();
+        Schema::create('vote', function (Blueprint $table) {
+            $table->id();
+            //$table->foreignId('user_id')->constrained();
+            $table->double('points');
+            //$table->foreignId('recipe_id')->constrained();
         });
     }
 
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('likes');
+        Schema::dropIfExists('vote');
     }
 };

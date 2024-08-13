@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -42,6 +43,11 @@
             height: 200px;
             border: 1px solid #000;
         }
+        .recipe_image {
+            width: 300px;
+            height: 100px;
+            border: 1px solid #111;
+        }
     </style>
 </head>
 <body>
@@ -58,7 +64,7 @@
     </div>
 
     <div style="text-align: center;">
-        <button class="button">レシピ作成</button>
+        <a href='/recipes/create'>レシピ作成</a>
     </div>
 
     <div class="ranking-container">
@@ -71,8 +77,27 @@
             <div class="ranking-item"></div>
         </div>
         <div>
-            <h3>新着レシピ</h3>
-            <div class="ranking-item"></div>
+            <a href="/recipes_updated">新着レシピ</a>
+            <div class="ranking-item">
+                @foreach ($recipes as $recipe)
+                <div class="recipe">
+                    <h2 class="title"><a href="/recipes/{{ $recipe->id }}">{{ $recipe->title }}</a></h2><!--タイトル表示-->
+                    <p class="body">{{ $recipe->introduction }}</p><!--紹介文表示-->
+                    
+                    <div class="image"><!--画像の表示-->
+                        <img class="recipe_image" src="{{ $recipe->image_path }}" alt="画像が読み込めません。">
+                    </div>
+                    
+                    <p class="tag">
+                    @foreach($recipe->tags as $tag)   
+                        {{ $tag->name }}<!--タグの表示-->
+                    @endforeach
+                    </p>
+                    
+                    <p class="updated_at">{{ $recipe->updated_at }}</p>
+                </div>
+                 @endforeach
+            </div>
         </div>
     </div>
 </body>

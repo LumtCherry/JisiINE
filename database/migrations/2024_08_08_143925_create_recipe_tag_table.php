@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vote', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('recipe_tag', function (Blueprint $table) {
+            $table->foreignId('recipe_id')->constrained('recipes');
+            $table->foreignId('tag_id')->constrained('tags');
+            $table->primary(['recipe_id','tag_id']);
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vote');
+        Schema::dropIfExists('recipe_tag');
     }
 };
