@@ -21,9 +21,10 @@ return new class extends Migration
             $table->string('recipe');
             $table->string('introduction');
             $table->timestamps();
-            $table->double('vote_average');
+            $table->double('vote_average')->nullable(true);
             $table->string('image_path')->nullable(true);
             //$table->foreignId('recipe_id')->constrained()->nullable(true);
+            $table->softDeletes($column = 'deleted_at');
         });
     }
 
