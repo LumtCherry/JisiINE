@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;//Recipeコントローラーの宣言
+use App\Http\Controllers\LikeController;//Likeコントローラーの宣言
 
 /*
 |--------------------------------------------------------------------------
@@ -52,8 +53,14 @@ Route::controller(RecipeController::class)->/*middleware('auth')->*/group(functi
     Route::put('/recipes/{recipe}', 'update')->name('recipe_update');//レシピの編集
     Route::delete('/recipes/{recipe}', 'delete')->name('recipe_delete');//レシピの削除
     Route::get('/recipes/{recipe}/edit', 'edit')->name('edit');//レシピの編集
+    Route::post('/recipes/{recipe}/like', 'like')->name('like');//レシピのいいね機能
+    Route::delete('/recipes/{recipe}/like', 'unlike')->name('unlike');//レシピのいいね取り消し機能
 });
 
+Route::controller(LikeController::class)->middleware('auth')->group(function(){
+    Route::post('/recipes/{recipe}/like', [LikeController::class, 'like'])->name('recipe_like');
+    Route::delete('/recipes/{recipe}/like', [LikeController::class, 'unlike'])->name('recipe_unlike');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

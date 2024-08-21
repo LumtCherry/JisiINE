@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable /*implements MustVerifyEmail ←メール認証のためのコード*/
 {
@@ -45,9 +46,17 @@ class User extends Authenticatable /*implements MustVerifyEmail ←メール認�
         'password' => 'hashed',
     ];
     
-    //collegeのリレーション
+    //collegeのリレーション 大学機能
     public function college()
     {
     return $this->belongsTo(College::class);
     }
+    
+    //いいね機能
+    //Likeへのリレーション
+    public function likes() :BelongsToMany
+    {
+    return $this->belongsToMany(Recipe::class , 'likes');
+    }
+    
 }

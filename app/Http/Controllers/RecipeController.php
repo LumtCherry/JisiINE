@@ -24,6 +24,7 @@ class RecipeController extends Controller
     //レシピの詳細表示
     public function show(Recipe $recipe)
     {
+        //$recipe = Recipe::withCount('likes')->get();//Recipeモデルにアクセスし、各レシピのいいね数をロードして、$recipeに格納している
         return view('recipes.show')->with(['recipe' => $recipe]);//$recipeの中身はid=1のRecipeインスタンス
     }
     
@@ -39,7 +40,7 @@ class RecipeController extends Controller
         $input_tags = $request->tags_array;
         if($request->file('image')){//画像ファイルが送られた時だけ処理が実行される
             $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath(); //cloudinaryへ画像を送信し、画像のURLを$image_urlに代入している
-            $input += ['image_path' => $image_url];  //$input = $input + ['image_path' => $image_url]の省略形
+            $input_recipe += ['image_path' => $image_url];  //$input = $input + ['image_path' => $image_url]の省略形
         }
         $recipe->fill($input_recipe)->save();//$recipe->fill($input_recipe)とすることで、store関数が実行時点で空だったPostインスタンスのプロパティを、受け取ったキーごとに上書きできる。fillを実行する時、RecipeModel側でfillableというプロパティにfillが可能なプロパティを指定しておく必要あり。save()でDBへデータを追加
         $recipe->tags()->attach($input_tags);//attachメソッドを使って中間テーブルにデータを保存

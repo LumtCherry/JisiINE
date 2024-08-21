@@ -41,7 +41,7 @@
         
         <div class="mt-4">
             <x-input-label for="college" :value="__('College')" />
-            <select name="college">
+            <select name="college_id">
             @foreach($colleges as $college)
                 <option value="{{ $college->id }}">{{ $college->college_name }}</option>
             @endforeach
