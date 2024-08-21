@@ -54,7 +54,7 @@
     <header>
         <h1>JisiNE!</h1>
         <input type="text" placeholder="定番シチュー類、肉・魚野菜など">
-        <button class="button">新規登録/ログイン</button>
+        <button class="button" onclick=location.href='/register'>新規登録/ログイン</button>
     </header>
 
     <div class="search-container">

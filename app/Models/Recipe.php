@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;//DELETEリクエストのための宣言
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Recipe extends Model
 {
@@ -34,9 +35,22 @@ class Recipe extends Model
     'image_path',
     ];
     
-    //タグに対するリレーション
+    //タグに対するリレーション タグ機能
     public function tags(){
     ///レシピは多数のタグを持っている
     return $this->belongsToMany(Tag::class);
+    }
+    
+    //いいね機能
+    //likeへのリレーション
+    public function likes():BelongsToMany
+    {
+    return $this->belongsToMany(User::class , 'likes');
+    }
+    
+    //いいね数のカウント
+    public function likesCount()
+    {
+    return $this->likes()->count();
     }
 }

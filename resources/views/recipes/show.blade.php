@@ -40,6 +40,14 @@
             </div>
         </div>
         
+        <!--いいね機能-->
+        <div class=likes>
+            <form action="{{ route('recipe_like', $recipe) }}" method="POST">
+            @csrf
+            <button type="submit">いいね</button>
+            </form>
+        </div>
+        
         <div class="edit"><a href="/recipes/{{ $recipe->id }}/edit">投稿の編集</a></div>
         
         <form action="/recipes/{{ $recipe->id }}" id="form_{{ $recipe->id }}" method="post">
